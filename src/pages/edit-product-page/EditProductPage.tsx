@@ -3,11 +3,7 @@ import { useParams } from 'react-router-dom'
 import { IManufacturer, IProduct } from '../../constants/interfaces'
 import styles from './EditProductPage.module.css'
 
-interface EditProductPageProps {
-  onEdit: (editedProduct: IProduct) => void
-}
-
-const EditProductPage: React.FC<EditProductPageProps> = ({ onEdit }) => {
+const EditProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
   const [editedProduct, setEditedProduct] = useState<IProduct>({
     id: id || '',
@@ -31,8 +27,7 @@ const EditProductPage: React.FC<EditProductPageProps> = ({ onEdit }) => {
   }
 
   const handleEdit = () => {
-    onEdit(editedProduct)
-    // You may want to redirect the user to another page after editing.
+    console.log('Edited')
   }
 
   return (

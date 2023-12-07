@@ -1,30 +1,17 @@
-import React, { useState } from 'react'
-
-import EditModal from '../modals/edit-modal/EditModal'
+import React from 'react'
 
 import styles from './ProductItem.module.css'
 import { IProduct } from '../../../constants/interfaces'
+import { ROUTES } from '../../../constants/constants'
+import { Link } from 'react-router-dom'
 
 interface ProductItemProps {
   product: IProduct
   onEdit: (editedProduct: IProduct) => void
 }
 
-const ProductItem: React.FC<ProductItemProps> = ({ product, onEdit }) => {
-  const [isEditModalOpen, setEditModalOpen] = useState(false)
-
-  const openEditModal = () => {
-    setEditModalOpen(true)
-  }
-
-  const closeEditModal = () => {
-    setEditModalOpen(false)
-  }
-
-  const handleEdit = (editedProduct: IProduct) => {
-    onEdit(editedProduct)
-  }
-
+const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
+  const editLink = `${ROUTES.EDIT_PRODUCT.replace(':id', product.id)}`
   return (
     <li className={styles.productItem}>
       <div>
@@ -32,15 +19,9 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onEdit }) => {
         {product.price} EUR, {product.expiryDate.toLocaleDateString('en-GB')}
       </div>
       <div>
-        <button onClick={openEditModal}>Edit</button>
+        <Link to={editLink}>Edit</Link>
         <button>Delete</button>
       </div>
-      <EditModal
-        isOpen={isEditModalOpen}
-        onRequestClose={closeEditModal}
-        onEdit={handleEdit}
-        product={product}
-      />
     </li>
   )
 }

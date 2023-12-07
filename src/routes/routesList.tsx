@@ -4,6 +4,7 @@ import About from '../components/about/About'
 import Products from '../components/products/Products'
 import { ROUTES } from '../constants/constants'
 import PageNotFound from '../pages/404/PageNotFound'
+import EditProductPage from '../pages/edit-product-page/EditProductPage'
 
 const routesList = (
   <Routes>
@@ -13,6 +14,7 @@ const routesList = (
     </Route>
 
     <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
+    <Route path={ROUTES.EDIT_PRODUCT} element={<EditProductPage />} />
   </Routes>
 )
 export default routesList
