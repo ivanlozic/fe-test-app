@@ -1,0 +1,26 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.heading {
+  color: #333;
+}
+
+.description {
+  line-height: 1.5;
+}
+
+.creator {
+  margin-top: 20px;
+  font-style: italic;
+}
+
+.technologies {
+  margin-top: 20px;
+}
+
+.feedback {
+  margin-top: 20px;
+}

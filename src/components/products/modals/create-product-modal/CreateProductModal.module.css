@@ -1,0 +1,42 @@
+.CreateProductModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  max-width: 400px;
+  width: 100%;
+}
+
+.CreateProductModal h3 {
+  margin-bottom: 10px;
+}
+
+.CreateProductModal label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.CreateProductModal input {
+  width: 90%;
+  padding: 8px;
+  margin-bottom: 16px;
+}
+
+.CreateProductModal button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.CreateProductModal button:hover {
+  background-color: #0056b3;
+}
