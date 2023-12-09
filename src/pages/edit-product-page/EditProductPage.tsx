@@ -1,7 +1,11 @@
-import React, { ChangeEvent, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
 import { IManufacturer, IProduct } from '../../constants/interfaces'
 import styles from './EditProductPage.module.css'
+import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
+import { updateProduct } from '../../redux/reducers/productReducer'
+import { ROUTES } from '../../constants/constants'
 
 const EditProductPage: React.FC = () => {
   const { id } = useParams<{ id: string }>()
@@ -12,7 +16,20 @@ const EditProductPage: React.FC = () => {
     price: 10.99,
     expiryDate: new Date()
   })
+  const products = useSelector(
+    (state: { products: IProduct[] }) => state.products
+  )
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const productToEdit = products.find((product) => product.id === id)
+
+    if (productToEdit) {
+      setEditedProduct(productToEdit)
+    }
+  }, [id, products])
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
 
@@ -27,6 +44,8 @@ const EditProductPage: React.FC = () => {
   }
 
   const handleEdit = () => {
+    dispatch(updateProduct(editedProduct))
+    navigate(ROUTES.PRODUCTS)
     console.log('Edited')
   }
 
