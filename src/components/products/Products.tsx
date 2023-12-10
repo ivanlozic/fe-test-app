@@ -13,14 +13,14 @@ const Products: React.FC = () => {
   return (
     <div>
       <h2>Products</h2>
+      <Link to={ROUTES.CREATE_PRODUCT} className={styles.addProduct}>
+        New Product
+      </Link>
       <ul className={styles.productList}>
         {products.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}
       </ul>
-      <Link to={ROUTES.CREATE_PRODUCT} className={styles.addProduct}>
-        New Product
-      </Link>
     </div>
   )
 }
