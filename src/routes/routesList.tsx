@@ -16,9 +16,10 @@ const routesList = (
       <Route path={ROUTES.STATS} element={<Statistics />} />
     </Route>
 
-    <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
+  
     <Route path={ROUTES.EDIT_PRODUCT} element={<EditProductPage />} />
     <Route path={ROUTES.CREATE_PRODUCT} element={<CreateProductPage />} />
+    <Route path={ROUTES.NOT_FOUND} element={<PageNotFound />} />
   </Routes>
 )
 export default routesList

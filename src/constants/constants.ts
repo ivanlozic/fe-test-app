@@ -5,5 +5,5 @@ export const ROUTES = {
   STATS: '/stats',
   EDIT_PRODUCT: '/edit-product/:id',
   CREATE_PRODUCT: '/create-product',
-  NOT_FOUND: '*'
+  NOT_FOUND: '*',
 }

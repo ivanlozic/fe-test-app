@@ -5,9 +5,12 @@
   align-items: center;
   background-color: #f0f0f0;
   padding: 20px;
+  min-height: 100vh;
 }
 
 .sideNav {
+  position: fixed;
+  top: 100px; 
   display: flex;
   flex-direction: column;
 }

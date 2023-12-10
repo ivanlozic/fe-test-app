@@ -6,23 +6,21 @@ import { ROUTES } from '../../../constants/constants'
 import { Link } from 'react-router-dom'
 import ConfirmationModal from '../modals/confirmation-modal/ConfirmationModal'
 import { useDispatch } from 'react-redux'
-import { deleteProduct } from '../../../redux/reducers/productReducer'
+import { deleteProduct } from '../../../redux/actions/actions'
 
 interface ProductItemProps {
   product: IProduct
-  onEdit: (editedProduct: IProduct) => void
 }
 
 const ProductItem: React.FC<ProductItemProps> = ({ product }) => {
   const editLink = `${ROUTES.EDIT_PRODUCT.replace(':id', product.id)}`
   const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleDelete = () => {
-    // Dispatch an action to delete the product from the store
-    dispatch(deleteProduct(product.id));
-    setDeleteModalOpen(false);
-  };
+    dispatch(deleteProduct(product.id))
+    setDeleteModalOpen(false)
+  }
   return (
     <li className={styles.productItem}>
       <div>

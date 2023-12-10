@@ -9,69 +9,97 @@ const BarChart = () => {
 
   useEffect(() => {
     if (chartRef.current) {
-      const sortedProducts = [...products].sort((a, b) => a.price - b.price)
-
-      const top5LeastExpensive = sortedProducts.slice(0, 5)
-
-      const leastExpensiveData = {
-        labels: top5LeastExpensive.map((product) => product.name),
-        datasets: [
-          {
-            label: 'Least Expensive',
-            data: top5LeastExpensive.map((product) => product.price),
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
-            borderWidth: 1
-          }
-        ]
-      }
-
-      // Create a chart using leastExpensiveData
-      const ctx = chartRef.current?.getContext('2d')
+      const ctx = chartRef.current.getContext('2d')
 
       if (ctx) {
-        chartRef.current.width = 400
+        chartRef.current.width = 800
         chartRef.current.height = 300
+
+        const sortedProducts = [...products].sort((a, b) => a.price - b.price)
+
+        const top5LeastExpensive = sortedProducts.slice(0, 5)
+        const top5MostExpensive = sortedProducts.slice(-5)
+
+        const labels = [...top5LeastExpensive, ...top5MostExpensive].map(
+          (product) => product.name,
+        )
+        const data = [...top5LeastExpensive, ...top5MostExpensive].map(
+          (product) => product.price,
+        )
+
         const myBarChart = new Chart(ctx, {
           type: 'bar',
-          data: leastExpensiveData,
+          data: {
+            labels,
+            datasets: [
+              {
+                label: 'Product Prices',
+                data,
+                backgroundColor: [
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 99, 132, 0.2)',
+                ],
+                borderColor: [
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(255, 99, 132, 1)',
+                ],
+                borderWidth: 1,
+              },
+            ],
+          },
           options: {
             scales: {
               x: {
                 title: {
                   display: true,
-                  text: 'Product Name'
-                }
+                  text: 'Product',
+                },
               },
               y: {
                 title: {
                   display: true,
-                  text: 'Product Price'
-                }
-              }
-            },
-            plugins: {
-                legend: {
-                  display: true,
-                  position: 'bottom',
+                  text: 'Product Price',
                 },
               },
+            },
+            plugins: {
+              legend: {
+                display: false,
+                position: 'bottom',
+              },
+            },
           },
-          
         })
 
-        // Optionally, you can add interactivity or update the chart based on user actions.
-        // For simplicity, this example doesn't include dynamic updates.
-
         return () => {
-          // Cleanup on component unmount
           myBarChart.destroy()
         }
       }
     }
   }, [products])
 
-  return <canvas ref={chartRef} />
+  return (
+    <div>
+      <div id="legendContainer"></div>
+      <canvas ref={chartRef} />
+    </div>
+  )
 }
 
 export default BarChart

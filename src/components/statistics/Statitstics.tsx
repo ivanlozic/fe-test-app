@@ -1,20 +1,28 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { IProduct } from '../../constants/interfaces';
-import PieChart from './pie-chart/PieChart';
-import BarChart from './bar-chart/BarChart';
+import React, { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { IProduct } from '../../constants/interfaces'
+import PieChart from './pie-chart/PieChart'
+import BarChart from './bar-chart/BarChart'
 
 const StatisticsPage: React.FC = () => {
-  const products = useSelector((state: { products: IProduct[] }) => state.products);
+  const products = useSelector(
+    (state: { products: IProduct[] }) => state.products,
+  )
 
   useEffect(() => {
-    console.log(products);
-  }, [products]);
+    console.log(products)
+  }, [products])
 
   return (
     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
       <h2>Statistics</h2>
-      <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
         <div style={{ margin: '50px' }}>
           <BarChart />
         </div>
@@ -23,7 +31,7 @@ const StatisticsPage: React.FC = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default StatisticsPage;
+export default StatisticsPage

@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from './About.module.css';
+import React from 'react'
+import styles from './About.module.css'
 
 const About: React.FC = () => {
   return (
@@ -20,13 +20,37 @@ const About: React.FC = () => {
       <div className={styles.creator}>
         <h3>Creator</h3>
         <p>Created by: Ivan Lozic</p>
+        <div className={styles.contactLinks}>
+          <div>
+            Email:{' '}
+            <a href="mailto:ivanlozic995@gmail.com">ivanlozic995@gmail.com</a>
+          </div>
+          <div>
+            LinkedIn:{' '}
+            <a
+              href="https://www.linkedin.com/in/ivan-lozi%C4%87-b72126221/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ivan Lozic
+            </a>
+          </div>
+          <div>
+            GitHub:{' '}
+            <a
+              href="https://github.com/ivanlozic"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
       </div>
 
       <div className={styles.technologies}>
         <h3>Technologies Used</h3>
-        <p>
-          This application is built using modern web technologies:
-        </p>
+        <p>This application is built using modern web technologies:</p>
         <ul>
           <li>React: A JavaScript library for building user interfaces.</li>
           <li>
@@ -40,12 +64,11 @@ const About: React.FC = () => {
         <h3>Feedback</h3>
         <p>
           I appreciate your feedback! If you have any suggestions or encounter
-          issues while using the application, please reach out to us at{' '}
-          <a href="mailto:ivanlozic995@gmail.com">ivanlozic995@gmail.com</a>.
+          issues while using the application, please reach out to me.
         </p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default About;
+export default About

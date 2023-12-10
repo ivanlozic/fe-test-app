@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import styles from './SideNav.module.css';
-import { ROUTES } from '../../../constants/constants';
+import React from 'react'
+import { Link } from 'react-router-dom'
+import styles from './SideNav.module.css'
+import { ROUTES } from '../../../constants/constants'
 
 const SideNav: React.FC = () => {
   return (
@@ -26,7 +26,7 @@ const SideNav: React.FC = () => {
         </ul>
       </nav>
     </div>
-  );
+  )
 }
 
-export default SideNav;
+export default SideNav

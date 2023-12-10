@@ -13,13 +13,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   isOpen,
   onRequestClose,
   onConfirm,
-  message
+  message,
 }) => {
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel='Confirmation Modal'
+      contentLabel="Confirmation Modal"
       className={styles.ConfirmationModal}
     >
       <p>{message}</p>

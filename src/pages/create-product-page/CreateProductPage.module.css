@@ -34,3 +34,10 @@
   cursor: pointer;
   margin-right: 10px;
 }
+
+.error {
+  color: red;
+  font-size: 0.8em;
+  margin-top: 5px;
+  display: block;
+}
