@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect} from 'react'
 import SideNav from '../../components/layout/side-nav/SideNav'
 import MainContent from '../../components/layout/main-content/MainContent'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { ROUTES } from '../../constants/constants'
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate()
-  const [initialRender, setInitialRender] = useState(true)
+  const location = useLocation()
 
   useEffect(() => {
-    if (initialRender) {
-      navigate(ROUTES.PRODUCTS)
-      setInitialRender(false)
-    }
-  }, [navigate, initialRender])
+    const currentRoute = location.pathname
+    localStorage.setItem('currentRoute', currentRoute)
+  }, [location.pathname])
+
+  useEffect(() => {
+    const storedRoute = localStorage.getItem('currentRoute') || ROUTES.PRODUCTS
+    navigate(storedRoute)
+  }, [navigate])
+
   return (
     <div style={{ display: 'flex' }}>
       <SideNav />

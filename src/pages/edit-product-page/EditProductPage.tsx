@@ -1,99 +1,112 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { IManufacturer, IProduct } from '../../constants/interfaces';
-import styles from './EditProductPage.module.css';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { ChangeEvent, useCallback, useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { IManufacturer, IProduct } from '../../constants/interfaces'
+import styles from './EditProductPage.module.css'
+import { useSelector, useDispatch } from 'react-redux'
 
-import { ROUTES } from '../../constants/constants';
-import { updateProduct } from '../../redux/actions/actions';
+import { ROUTES } from '../../constants/constants'
+import { updateProduct } from '../../redux/actions/actions'
 
 interface IFormErrors {
-  name: string;
-  manufacturer: string;
-  price: string;
-  expiryDate: string;
+  name: string
+  manufacturer: string
+  price: string
+  expiryDate: string
 }
 
 const EditProductPage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>()
   const [editedProduct, setEditedProduct] = useState<IProduct>({
     id: id || '',
     name: 'Sample Product',
     manufacturer: { name: 'Sample Manufacturer' } as IManufacturer,
     price: 10.99,
     expiryDate: new Date(),
-  });
+  })
   const products = useSelector(
-    (state: { products: IProduct[] }) => state.products
-  );
+    (state: { products: IProduct[] }) => state.products,
+  )
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const [formErrors, setFormErrors] = useState<IFormErrors>({
     name: '',
     manufacturer: '',
     price: '',
     expiryDate: '',
-  });
+  })
 
   useEffect(() => {
-    const productToEdit = products.find((product) => product.id === id);
+    const productToEdit = products.find((product) => product.id === id)
 
     if (productToEdit) {
-      setEditedProduct(productToEdit);
+      setEditedProduct(productToEdit)
     }
-  }, [id, products]);
-
-  const validateForm = () => {
+  }, [id, products])
+  const validateForm = useCallback((product: IProduct) => {
     const errors: IFormErrors = {
       name: '',
       manufacturer: '',
       price: '',
       expiryDate: '',
-    };
-
-    if (!editedProduct.name.trim()) {
-      errors.name = 'Name is required';
     }
 
-    if (!editedProduct.manufacturer.name.trim()) {
-      errors.manufacturer = 'Manufacturer is required';
+    if (product.name.trim() === '') {
+      errors.name = 'Name is required'
     }
 
-    if (editedProduct.price <= 0) {
-      errors.price = 'Price must be greater than 0';
+    if (product.manufacturer.name.trim() === '') {
+      errors.manufacturer = 'Manufacturer is required'
     }
 
-    if (!editedProduct.expiryDate || isNaN(editedProduct.expiryDate.getTime())) {
-      errors.expiryDate = 'Expiry Date is required';
+    if (product.price <= 0) {
+      errors.price = 'Price must be greater than 0'
     }
 
-    setFormErrors(errors);
+    if (!product.expiryDate || isNaN(product.expiryDate.getTime())) {
+      errors.expiryDate = 'Expiry Date is required'
+    }
 
-    return Object.values(errors).every((error) => !error);
-  };
+    setFormErrors(errors)
+
+    return Object.values(errors).every((error) => !error)
+  }, [])
+
+  useEffect(() => {
+    validateForm(editedProduct)
+  }, [editedProduct, validateForm])
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
 
-    if (name === 'manufacturer') {
-      setEditedProduct((prevProduct) => ({
-        ...prevProduct,
-        manufacturer: { name: value } as IManufacturer,
-      }));
-    } else {
-      setEditedProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
-    }
-  };
+    setEditedProduct((prevProduct) => {
+      if (name === 'manufacturer') {
+        return {
+          ...prevProduct,
+          manufacturer: { name: value } as IManufacturer,
+        }
+      } else if (name === 'expiryDate') {
+        return {
+          ...prevProduct,
+          expiryDate: new Date(value),
+        }
+      } else {
+        return { ...prevProduct, [name]: value }
+      }
+    })
+  }
+
+  useEffect(() => {
+    validateForm(editedProduct)
+  }, [editedProduct, validateForm])
 
   const handleEdit = () => {
-    if (validateForm()) {
-      dispatch(updateProduct(editedProduct));
-      navigate(ROUTES.PRODUCTS);
-      console.log('Edited');
+    if (validateForm(editedProduct)) {
+      dispatch(updateProduct(editedProduct))
+      navigate(ROUTES.PRODUCTS)
     }
-  };
+  }
 
   return (
     <div className={styles.editProductPage}>
@@ -152,7 +165,7 @@ const EditProductPage: React.FC = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default EditProductPage;
+export default EditProductPage

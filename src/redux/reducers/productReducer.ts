@@ -1,4 +1,3 @@
-// productReducer.ts
 import { Reducer } from 'redux'
 import { IProduct } from '../../constants/interfaces'
 import { pharmacyProducts } from '../../ProductsData'
