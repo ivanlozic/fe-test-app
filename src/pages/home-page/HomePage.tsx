@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import SideNav from '../../components/layout/side-nav/SideNav'
 import MainContent from '../../components/layout/main-content/MainContent'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
@@ -15,7 +15,12 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const storedRoute = localStorage.getItem('currentRoute') || ROUTES.PRODUCTS
-    navigate(storedRoute)
+
+    if (storedRoute === '/') {
+      navigate(ROUTES.PRODUCTS)
+    } else {
+      navigate(storedRoute)
+    }
   }, [navigate])
 
   return (
